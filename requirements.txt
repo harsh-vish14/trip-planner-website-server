@@ -43,7 +43,6 @@ PyRect==0.1.4
 PyScreeze==0.1.26
 PyTweening==1.0.3
 pytz==2021.1
-pywin32==300
 requests==2.25.1
 rsa==4.7.2
 six==1.15.0
