@@ -1,0 +1,1 @@
+/flightQuery/<money>/<year>/<month>/<day>

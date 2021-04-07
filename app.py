@@ -1,8 +1,11 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 cred = credentials.Certificate("./key.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
@@ -38,7 +41,7 @@ def sendData():
     print(userData[0])
     # db.collection('hotel').document('hotels').set(
     #     {
-    #         "hotelData": userData
+    #         "hotelsData": userData,
     #     }
     # )
     ref.document(userData['uid']).set({})
