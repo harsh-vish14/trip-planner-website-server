@@ -44,7 +44,16 @@ def sendData():
     #         "hotelsData": userData,
     #     }
     # )
-    ref.document(userData['uid']).set({})
+    doc_ref = db.collection('users').document(userData['uid'])
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.set({});
+    else:
+        doc_ref.set({
+            'name':userData['name'],
+            'email':userData['email'],
+            'userPhoto': userData['userPhoto']
+        },);
     return jsonify({
         'status': 200,
         'message': 'done'
