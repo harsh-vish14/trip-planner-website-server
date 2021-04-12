@@ -33,7 +33,7 @@ def updateDetails():
         return jsonify({
             "Message":"Invalid user id"
         });    
-    print(Data);
+    
     return jsonify({
         "Message":"Data Updated successfully",
         'status': 200
@@ -45,10 +45,10 @@ def hotelsAdd(dbname):
     Databases = ['hotel','flight','package']
     DataArrays = request.get_json(force=True);
     if(dbname in Databases):
-        print(DataArrays)
+        
         for data in DataArrays:
             db.collection(dbname).document(dbname+'s').update({dbname+"sData": firestore.ArrayUnion([data])})
-            # print(data);
+            
     else:
         return jsonify({
             "error":'invalid api call',
@@ -110,7 +110,7 @@ def add_flight():
     doc_ref = db.collection('users').document(flightData['uid'])
     # {u'regions': firestore.ArrayUnion([u'greater_virginia'])}
     doc_ref.update({u'flights': firestore.ArrayUnion([flightData['flightId']])})
-    print(flightData)
+    
     return jsonify({
         "message": 'User flight successfully',
         "status":200
@@ -124,7 +124,7 @@ def add_hotels():
     doc_ref = db.collection('users').document(hotelData['uid'])
     # {u'regions': firestore.ArrayUnion([u'greater_virginia'])}
     doc_ref.update({u'hotels': firestore.ArrayUnion([hotelData['hotelId']])})
-    print(hotelData)
+    
     return jsonify({
         "message": 'User flight successfully',
         "status":200
@@ -138,7 +138,7 @@ def add_package():
     doc_ref = db.collection('users').document(packageData['uid'])
     # {u'regions': firestore.ArrayUnion([u'greater_virginia'])}
     doc_ref.update({u'packages': firestore.ArrayUnion([packageData['packageId']])})
-    print(packageData)
+    
     return jsonify({
         "message": 'User flight successfully',
         "status":200
