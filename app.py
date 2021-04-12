@@ -18,7 +18,8 @@ ref = db.collection('users')
 @app.route('/', methods=['GET'])
 def home():
     return jsonify({
-        'message': uuid.uuid4()
+        'message': "You are using Trip planner api",
+        "status": 200
     })
 
 @app.route(f'/updateUserFields/{Authkey}/remove',methods=['POST'])
