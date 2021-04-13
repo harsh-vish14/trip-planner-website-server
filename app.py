@@ -40,7 +40,7 @@ def updateDetails():
         'status': 200
     });
 
-@app.route(f'/add-hotel/{Authkey}/<dbname>',methods=['POST'])
+@app.route(f'/add-to-database/{Authkey}/<dbname>',methods=['POST'])
 @cross_origin()
 def hotelsAdd(dbname):
     Databases = ['hotel','flight','package']
@@ -68,12 +68,25 @@ def hotelsFillter():
     hotels = hotels['hotelsData']
     return jsonify(hotels)
 
-@app.route('/flightQuery/<money>/<year>/<month>/<day>', methods=['GET'])
-def fight(money=0, year=0, month=0, day=0):
+@app.route('/flightsLocationOption', methods=['GET'])
+def locations():
+    doc = dict(db.collection('flight').document('flights').get().to_dict())
+    flightFrom = []
+    flightTo = []
+    for flight in doc['flightsData']:
+        flightFrom.append(flight['from'])
+        flightTo.append(flight['to'])
+    return jsonify({
+        "from": list(set(flightFrom)),
+        "to": list(set(flightTo)),
+    })
+
+@app.route('/flightQuery/<money>/<year>/<month>/<day>/<From>/<to>', methods=['GET'])
+def fight(money=0, year=0, month=0, day=0,From='',to=''):
     doc = dict(db.collection('flight').document('flights').get().to_dict())
     filterData = []
     for i in doc['flightsData']:
-        if int(money) >= i['price'] and int(year) >= i['year'] and int(month) >= i['month']:
+        if int(money) >= i['price'] and int(year) >= i['year'] and int(month) >= i['month'] and i['from'] == From or i['to'] == to:
             filterData.append(i)
     return jsonify(filterData)
 
